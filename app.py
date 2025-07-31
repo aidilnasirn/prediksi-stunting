@@ -19,7 +19,7 @@ berdasarkan **Standar Pertumbuhan Anak dari WHO**.
 - **Kalkulator Gizi**: Hitung Z-Score untuk Tinggi Badan dan Berat Badan.
 - **Informasi Stunting**: Pelajari tentang stunting, penyebab, dan pencegahannya.
 
-**👈 Silakan pilih halaman dari menu di samping untuk memulai.**
+**Silakan pilih halaman dari menu di samping untuk memulai.**
 """)
 st.markdown('</div>', unsafe_allow_html=True)
 
