@@ -1,0 +1,92 @@
+/* Import font dari Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap');
+
+/* Variabel warna untuk tema yang konsisten */
+:root {
+    --primary-color: #0068c9;
+    --primary-color-light: #e6f0f9;
+    --background-color: #f0f2f6;
+    --card-background-color: #ffffff;
+    --text-color: #31333f;
+    --text-color-light: #808495;
+    --success-color: #21ba45;
+    --warning-color: #f2c037;
+    --error-color: #db2828;
+    --font-family: 'Nunito Sans', sans-serif;
+}
+
+/* Style dasar untuk seluruh aplikasi */
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+/* Menghilangkan background default header dan toolbar Streamlit */
+[data-testid="stHeader"], [data-testid="stToolbar"] {
+    background: none;
+}
+
+/* Style untuk judul utama */
+h1, h2, h3 {
+    color: var(--primary-color);
+    font-weight: 700;
+}
+
+/* Style "Card" untuk membungkus konten */
+/* .card {
+    background-color: var(--card-background-color);
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    border: 1px solid #e0e0e0;
+} */
+
+/* Style untuk tombol utama */
+.stButton > button {
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+.stButton > button:hover {
+    background-color: #0056a8;
+}
+
+/* Style untuk input fields */
+.stTextInput input, .stNumberInput input {
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* Style untuk Radio button */
+.stRadio [role="radiogroup"] {
+    background-color: var(--primary-color-light);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+/* Style untuk Metric (menampilkan Z-Score) */
+[data-testid="stMetric"] {
+    background-color: var(--primary-color-light);
+    border-radius: 8px;
+    padding: 10px 15px;
+    border-left: 5px solid var(--primary-color);
+}
+[data-testid="stMetric"] > div > div:nth-child(2) {
+    font-weight: 700;
+}
+
+/* Style untuk Expander */
+[data-testid="stExpander"] {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}
+[data-testid="stExpander"] summary {
+    font-weight: 600;
+    font-size: 1.05em;
+    color: var(--primary-color);
+}

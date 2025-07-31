@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hasil Prediksi Stunting & Gizi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://png.pngtree.com/png-clipart/20230916/original/pngtree-small-child-stunting-child-malnutrition-among-children-png-image_12257344.png" type="image/x-icon">
+    <style>
+         body {
+            font-family: 'Inter', sans-serif;
+            background-image: url("https://i.pinimg.com/736x/fc/38/c4/fc38c4854479e3cc0c95e668deb4488f.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+       
+        .result-card {
+            background-color: #ffffff;
+            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #e5e7eb;
+        }
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        .result-label {
+            font-weight: 600;
+            color: #4b5563;
+        }
+        .result-value {
+            color: #1f2937;
+            text-align: right;
+        }
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Full rounded */
+            font-weight: 600;
+            font-size: 0.875rem; /* text-sm */
+            display: inline-block;
+        }
+        .status-normal { background-color: #d1fae5; color: #065f46; } /* green-100, green-800 */
+        .status-stunted { background-color: #fee2e2; color: #dc2626; } /* red-100, red-700 */
+        .status-severely-stunted { background-color: #fef2f2; color: #b91c1c; } /* red-50, red-800 */
+        .status-underweight { background-color: #ffe4e6; color: #be123c; } /* rose-100, rose-700 */
+        .status-severely-underweight { background-color: #fef2f2; color: #881337; } /* rose-50, rose-900 */
+        .status-overweight { background-color: #fffbeb; color: #b45309; } /* amber-100, amber-700 */
+        .status-obese { background-color: #fefce8; color: #a16207; } /* yellow-100, yellow-800 */
+        .status-risk-overweight { background-color: #fef3c7; color: #d97706; } /* amber-50, amber-800 */
+        .status-tall { background-color: #e0f2fe; color: #0369a1; } /* lightblue-100, lightblue-800 */
+
+        .btn-back {
+            background-color: #6b7280;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-back:hover {
+            background-color: #4b5563;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="container-fluid bg-white p-8 rounded-lg shadow-lg text-gray-800">
+        <h1 class="text-3xl font-bold text-center mb-6">Hasil Prediksi Status Gizi</h1>
+        <p class="text-center text-gray-600 mb-8">Berikut adalah hasil analisis data balita Anda:</p>
+
+        <div class="result-card mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Data Balita</h2>
+            <div class="space-y-2">
+                <div class="result-item">
+                    <span class="result-label">Nama Anak:</span>
+                    <span class="result-value">{{ nama_anak }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Usia:</span>
+                    <span class="result-value">{{ usia }} bulan</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Jenis Kelamin:</span>
+                    <span class="result-value">{{ jenis_kelamin }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Berat Badan:</span>
+                    <span class="result-value">{{ berat_badan }} kg</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Tinggi Badan:</span>
+                    <span class="result-value">{{ tinggi_badan }} cm</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-card mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Hasil Analisis Tinggi Badan menurut Usia (TB/U)</h2>
+            <div class="space-y-2">
+                <div class="result-item">
+                    <span class="result-label">Z-score TB/U:</span>
+                    <span class="result-value">{{ z_score_tb_u }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Status Gizi (TB/U):</span>
+                    <span class="result-value">
+                        <span class="status-badge 
+                            {% if 'Sangat Pendek' in status_tb_u %}status-severely-stunted
+                            {% elif 'Pendek' in status_tb_u %}status-stunted
+                            {% elif 'Tinggi' in status_tb_u %}status-tall
+                            {% else %}status-normal{% endif %}">
+                            {{ status_tb_u }}
+                        </span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Deskripsi:</span>
+                    <span class="result-value text-right max-w-xs">{{ deskripsi_tb_u }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-card mb-8">
+            <h2 class="text-2xl font-semibold mb-4 text-center">Hasil Analisis Berat Badan menurut Usia (BB/U)</h2>
+            <div class="space-y-2">
+                <div class="result-item">
+                    <span class="result-label">Z-score BB/U:</span>
+                    <span class="result-value">{{ z_score_bb_u }}</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Status Gizi (BB/U):</span>
+                    <span class="result-value">
+                        <span class="status-badge 
+                            {% if 'Sangat Kurus' in status_bb_u %}status-severely-underweight
+                            {% elif 'Kurus' in status_bb_u %}status-underweight
+                            {% elif 'Gizi Lebih' in status_bb_u %}status-overweight
+                            {% elif 'Obesitas' in status_bb_u %}status-obese
+                            {% elif 'Berisiko Gizi Lebih' in status_bb_u %}status-risk-overweight
+                            {% else %}status-normal{% endif %}">
+                            {{ status_bb_u }}
+                        </span>
+                    </span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Deskripsi:</span>
+                    <span class="result-value text-right max-w-xs">{{ deskripsi_bb_u }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="/" class="btn-back">Kembali ke Halaman Utama</a>
+        </div>
+    </div>
+</body>
+</html>

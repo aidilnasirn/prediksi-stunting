@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediksi Stunting & Gizi Balita</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="https://png.pngtree.com/png-clipart/20230916/original/pngtree-small-child-stunting-child-malnutrition-among-children-png-image_12257344.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-image: url("https://i.pinimg.com/736x/fc/38/c4/fc38c4854479e3cc0c95e668deb4488f.jpg");
+            background-position: center;
+            background-size: cover;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+        .form-input, .form-select {
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.75rem 1rem;
+            width: 100%;
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            transition: border-color 0.2s;
+        }
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        .btn-primary {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: background-color 0.2s ease-in-out;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .alert-error {
+            background-color: #fee2e2;
+            color: #ef4444;
+            border: 1px solid #fca5a5;
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+    <div class="container-md-12 bg-white p-8 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Prediksi Stunting & Gizi Balita Kec. Baito <br> (UPTD PUSKESMAS BAITO)</h1>
+        <p class="text-center text-gray-600 mb-8">Masukkan data balita untuk mendapatkan prediksi status gizi.</p>
+
+        {% if error %}
+        <div class="alert-error mb-6" role="alert">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
+        <form action="/predict" method="post" class="space-y-5">
+            <div>
+                <label for="nama_anak" class="block form-label mb-2">Nama Anak:</label>
+                <input type="text" id="nama_anak" name="nama_anak" required class="form-input" placeholder="Contoh: Budi">
+            </div>
+            <div>
+                <label for="usia" class="block form-label mb-2">Usia (bulan):</label>
+                <input type="number" id="usia" name="usia" min="0" max="24" required class="form-input" placeholder="Contoh: 12">
+                <p class="text-sm text-gray-500 mt-1">Rentang usia yang didukung: 0-24 bulan.</p>
+            </div>
+            <div>
+                <label for="jenis_kelamin" class="block form-label mb-2">Jenis Kelamin:</label>
+                <select id="jenis_kelamin" name="jenis_kelamin" required class="form-select">
+                    <option value="">Pilih Jenis Kelamin</option>
+                    <option value="laki-laki">Laki-laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div>
+                <label for="berat_badan" class="block form-label mb-2">Berat Badan (kg):</label>
+                <input type="number" step="0.1" id="berat_badan" name="berat_badan" required class="form-input" placeholder="Contoh: 8.5">
+                <p class="text-sm text-gray-500 mt-1">Masukkan berat badan dalam kilogram (kg).</p>
+            </div>
+            <div>
+                <label for="tinggi_badan" class="block form-label mb-2">Tinggi Badan (cm):</label>
+                <input type="number" step="0.1" id="tinggi_badan" name="tinggi_badan" required class="form-input" placeholder="Contoh: 75.0">
+                <p class="text-sm text-gray-500 mt-1">Masukkan tinggi badan dalam sentimeter (cm).</p>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn-primary w-full sm:w-auto">Prediksi Sekarang</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
+
